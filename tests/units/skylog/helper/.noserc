@@ -1,0 +1,4 @@
+[nosetests]
+verbosity=3
+cover-package=../../../../skylog/helper/
+cover-erase=1
