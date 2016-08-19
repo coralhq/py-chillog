@@ -20,6 +20,7 @@ How To Use
 - Use skylog logger --> ``from skylog import logger``
 
 There are 4 logger you can use:
+
 - ``info``
 - ``warning``
 - ``alert``
@@ -30,5 +31,6 @@ e.g. : ``logger.info('log message')``
 You can also pass additional data to logger, by kwargs param or just pass whole dict.
 
 e.g. :
+
 - Pass kwargs params --> ``logger.info('log message', key='value')``
 - Pass dict --> ``logger.info('log message', **{'key': 'value'})``
