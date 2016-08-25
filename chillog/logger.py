@@ -28,7 +28,7 @@ class Chillog:
 
         return dict_to_add
 
-    def build_json_log(self, log_level, short_msg, **kwargs):
+    def build_json_log(self, log_level, short_message, **kwargs):
         expected_level = [
             self.LOG_ALERT,
             self.LOG_CRITICAL,
@@ -45,11 +45,14 @@ class Chillog:
         json_log = {
             'version': self.LOG_MESSAGE_VERSION,
             'host': self.__hostname,
-            'short_message': short_msg,
-            'full_message': short_msg,
+            'short_message': short_message,
+            'full_message': kwargs.get('full_message'),
             'timestamp': self.__get_current_timestamp(),
             'level': log_level
         }
+
+        if kwargs.get('full_message'):
+            del kwargs['full_message']
 
         json_log = self.__add_param_to_dict(json_log, **kwargs)
 
@@ -57,30 +60,30 @@ class Chillog:
 
     def info(self, msg, **kwargs):  # pragma: no cover
         json_log = self.build_json_log(log_level=self.LOG_INFO,
-                                       short_msg=msg,
+                                       short_message=msg,
                                        **kwargs)
         print json_log
 
     def alert(self, msg, **kwargs):  # pragma: no cover
         json_log = self.build_json_log(log_level=self.LOG_ALERT,
-                                       short_msg=msg,
+                                       short_message=msg,
                                        **kwargs)
         print json_log
 
     def warning(self, msg, **kwargs):  # pragma: no cover
         json_log = self.build_json_log(log_level=self.LOG_WARNING,
-                                       short_msg=msg,
+                                       short_message=msg,
                                        **kwargs)
         print json_log
 
     def critical(self, msg, **kwargs):  # pragma: no cover
         json_log = self.build_json_log(log_level=self.LOG_CRITICAL,
-                                       short_msg=msg,
+                                       short_message=msg,
                                        **kwargs)
         print json_log
 
     def debug(self, msg, **kwargs):  # pragma: no cover
         json_log = self.build_json_log(log_level=self.LOG_DEBUG,
-                                       short_msg=msg,
+                                       short_message=msg,
                                        **kwargs)
         print json_log
