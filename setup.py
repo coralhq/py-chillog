@@ -1,10 +1,9 @@
 from distutils.core import setup
 setup(
-    name='Skylog',
+    name='Chillog',
     version='0.1',
-    description='Skyfish Custom Logger',
-    url='skyfish.id',
+    description='SFE Custom Logger',
     author='Rama Bramantara',
     author_email='rama@onebitmedia.com',
-    packages=['skylog']
+    packages=['chillog']
 )

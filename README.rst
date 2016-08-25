@@ -1,5 +1,5 @@
 ==========
-SFE Logger
+py-chillog
 ==========
 
 Python logger library for SFE
@@ -15,7 +15,7 @@ How To Install
 How To Use
 ==========
 
-- Import ``from skylog.logger import skylog_init``
+- Import ``from chillog.logger import skylog_init``
 - Initialize this library with ``skylog_init(APP_NAME)``
 - Use skylog logger --> ``from skylog import logger``
 
