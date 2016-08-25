@@ -15,16 +15,17 @@ How To Install
 How To Use
 ==========
 
-- Import ``from chillog.logger import skylog_init``
-- Initialize this library with ``skylog_init(APP_NAME)``
-- Use skylog logger --> ``from skylog import logger``
+- Import ``from chillog.logger import Chillog``
+- Initialize this library with ``logger = Chillog()``
+- Use Chillog logger using ``logger`` (object from previous step)
 
-There are 4 logger you can use:
+There are 5 logger you can use:
 
 - ``info``
 - ``warning``
 - ``alert``
 - ``critical``
+- ``debug``
 
 e.g. : ``logger.info('log message')``
 
