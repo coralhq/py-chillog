@@ -1,3 +1,4 @@
+import json
 import socket
 import time
 
@@ -13,22 +14,49 @@ class Chillog:
     LOG_INFO = 6
     LOG_DEBUG = 7
 
-    def __init__(self, hostname=None):
+    def __init__(self, service_name, hostname=None):
+        self.__service_name = service_name
         self.__hostname = hostname if hostname else socket.gethostname()
 
     @staticmethod
-    def __get_current_timestamp():
+    def __get_current_millis():
+        """
+        Get current time in milliseconds
+
+        :return: Current time in milliseconds
+        """
         return int(round(time.time() * 1000))
 
     @staticmethod
-    def __add_param_to_dict(dict_to_add, **kwargs):
+    def __add_optional_fields(dict_to_add, **kwargs):
+        """
+        Add optional field to dict.
+        Additional field(s) will be preceded with underscore in front of the field name
+
+        :param dict_to_add: Dict to be added with optional field(s)
+        :param kwargs: Optional field(s)
+        :return: Dict with optional field(s)
+        """
         for key, value in kwargs.items():
             key = '_' + str(key)
             dict_to_add[key] = value
 
         return dict_to_add
 
-    def build_json_log(self, log_level, short_message, **kwargs):
+    @staticmethod
+    def __print_log(formatted_log):  # pragma: no cover
+        print json.dumps(formatted_log, indent=4, sort_keys=True)
+
+    def build_log_message(self, log_level, short_message, **kwargs):
+        """
+        Build log message in Chillog format.
+
+        :param log_level: Level of log
+        :param short_message: Short message about the event
+        :param full_message: Longer, more detailed message
+        :param kwargs: Additional field(s)
+        :return: Dict of formatted log
+        """
         expected_level = [
             self.LOG_ALERT,
             self.LOG_CRITICAL,
@@ -42,48 +70,49 @@ class Chillog:
         if log_level not in expected_level:
             log_level = self.LOG_INFO
 
-        json_log = {
+        formatted_log = {
             'version': self.LOG_MESSAGE_VERSION,
             'host': self.__hostname,
+            'service': self.__service_name,
             'short_message': short_message,
             'full_message': kwargs.get('full_message'),
-            'timestamp': self.__get_current_timestamp(),
+            'timestamp': self.__get_current_millis(),
             'level': log_level
         }
 
         if kwargs.get('full_message'):
             del kwargs['full_message']
 
-        json_log = self.__add_param_to_dict(json_log, **kwargs)
+        formatted_log = self.__add_optional_fields(formatted_log, **kwargs)
 
-        return json_log
-
-    def info(self, msg, **kwargs):  # pragma: no cover
-        json_log = self.build_json_log(log_level=self.LOG_INFO,
-                                       short_message=msg,
-                                       **kwargs)
-        print json_log
-
-    def alert(self, msg, **kwargs):  # pragma: no cover
-        json_log = self.build_json_log(log_level=self.LOG_ALERT,
-                                       short_message=msg,
-                                       **kwargs)
-        print json_log
-
-    def warning(self, msg, **kwargs):  # pragma: no cover
-        json_log = self.build_json_log(log_level=self.LOG_WARNING,
-                                       short_message=msg,
-                                       **kwargs)
-        print json_log
-
-    def critical(self, msg, **kwargs):  # pragma: no cover
-        json_log = self.build_json_log(log_level=self.LOG_CRITICAL,
-                                       short_message=msg,
-                                       **kwargs)
-        print json_log
+        return formatted_log
 
     def debug(self, msg, **kwargs):  # pragma: no cover
-        json_log = self.build_json_log(log_level=self.LOG_DEBUG,
-                                       short_message=msg,
-                                       **kwargs)
-        print json_log
+        formatted_log = self.build_log_message(log_level=self.LOG_DEBUG,
+                                               short_message=msg,
+                                               **kwargs)
+        print formatted_log
+
+    def info(self, msg, **kwargs):  # pragma: no cover
+        formatted_log = self.build_log_message(log_level=self.LOG_INFO,
+                                               short_message=msg,
+                                               **kwargs)
+        print formatted_log
+
+    def warning(self, msg, **kwargs):  # pragma: no cover
+        formatted_log = self.build_log_message(log_level=self.LOG_WARNING,
+                                               short_message=msg,
+                                               **kwargs)
+        print formatted_log
+
+    def alert(self, msg, **kwargs):  # pragma: no cover
+        formatted_log = self.build_log_message(log_level=self.LOG_ALERT,
+                                               short_message=msg,
+                                               **kwargs)
+        print formatted_log
+
+    def critical(self, msg, **kwargs):  # pragma: no cover
+        formatted_log = self.build_log_message(log_level=self.LOG_CRITICAL,
+                                               short_message=msg,
+                                               **kwargs)
+        print formatted_log

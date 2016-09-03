@@ -1,4 +1,4 @@
 [nosetests]
 verbosity=3
-cover-package=../../../chillog/
+cover-package=../chillog/
 cover-erase=1

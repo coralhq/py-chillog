@@ -90,10 +90,7 @@ ENV/
 
 # Rope project settings
 .ropeproject
+### IPythonNotebook template
+# Temporary data
+.ipynb_checkpoints/
 
-# idea file
-.idea/
-
-MANIFEST
-
-test_version.txt
