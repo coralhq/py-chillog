@@ -9,7 +9,7 @@ How To Install
 ==============
 
 - Download / clone this repo
-- Run ``python setup.py install``
+- Run ``make install``
 
 
 How To Use
@@ -21,11 +21,11 @@ How To Use
 
 There are 5 logger you can use:
 
+- ``debug``
 - ``info``
 - ``warning``
 - ``alert``
 - ``critical``
-- ``debug``
 
 e.g. : ``logger.info('log message')``
 

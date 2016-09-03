@@ -45,6 +45,12 @@ class Chillog:
 
     @staticmethod
     def __print_log(formatted_log):  # pragma: no cover
+        """
+        Print formatted log prettify
+
+        :param formatted_log: Formatted JSON log
+        :return: Print to stdout
+        """
         print json.dumps(formatted_log, indent=4, sort_keys=True)
 
     def build_log_message(self, log_level, short_message, **kwargs):
@@ -53,7 +59,6 @@ class Chillog:
 
         :param log_level: Level of log
         :param short_message: Short message about the event
-        :param full_message: Longer, more detailed message
         :param kwargs: Additional field(s)
         :return: Dict of formatted log
         """
@@ -87,32 +92,67 @@ class Chillog:
 
         return formatted_log
 
-    def debug(self, msg, **kwargs):  # pragma: no cover
+    def debug(self, short_message, **kwargs):  # pragma: no cover
+        """
+        Format log with debug level
+
+        :param short_message: Short log message
+        :param kwargs: Additional param(s)
+        :return: Print formatted log to stdout
+        """
         formatted_log = self.build_log_message(log_level=self.LOG_DEBUG,
-                                               short_message=msg,
+                                               short_message=short_message,
                                                **kwargs)
-        print formatted_log
+        self.__print_log(formatted_log)
 
-    def info(self, msg, **kwargs):  # pragma: no cover
+    def info(self, short_message, **kwargs):  # pragma: no cover
+        """
+        Format log with info level
+
+        :param short_message: Short log message
+        :param kwargs: Additional param(s)
+        :return: Print formatted log to stdout
+        """
         formatted_log = self.build_log_message(log_level=self.LOG_INFO,
-                                               short_message=msg,
+                                               short_message=short_message,
                                                **kwargs)
-        print formatted_log
+        self.__print_log(formatted_log)
 
-    def warning(self, msg, **kwargs):  # pragma: no cover
+    def warning(self, short_message, **kwargs):  # pragma: no cover
+        """
+        Format log with warning level
+
+        :param short_message: Short log message
+        :param kwargs: Additional param(s)
+        :return: Print formatted log to stdout
+        """
         formatted_log = self.build_log_message(log_level=self.LOG_WARNING,
-                                               short_message=msg,
+                                               short_message=short_message,
                                                **kwargs)
-        print formatted_log
+        self.__print_log(formatted_log)
 
-    def alert(self, msg, **kwargs):  # pragma: no cover
+    def alert(self, short_message, **kwargs):  # pragma: no cover
+        """
+        Format log with alert level
+
+        :param short_message: Short log message
+        :param kwargs: Additional param(s)
+        :return: Print formatted log to stdout
+        """
         formatted_log = self.build_log_message(log_level=self.LOG_ALERT,
-                                               short_message=msg,
+                                               short_message=short_message,
                                                **kwargs)
-        print formatted_log
+        self.__print_log(formatted_log)
 
-    def critical(self, msg, **kwargs):  # pragma: no cover
+    def critical(self, short_message, **kwargs):  # pragma: no cover
+        """
+        Format log with critical level
+
+        :param short_message: Short log message
+        :param kwargs: Additional param(s)
+        :return: Print formatted log to stdout
+        """
         formatted_log = self.build_log_message(log_level=self.LOG_CRITICAL,
-                                               short_message=msg,
+                                               short_message=short_message,
                                                **kwargs)
-        print formatted_log
+        self.__print_log(formatted_log)

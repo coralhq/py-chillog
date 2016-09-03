@@ -15,6 +15,9 @@ test: test-clean unit-test
 
 clean: test-clean
 
+install:
+	python setup.py install
+
 test_version.txt:
 	# put version tag for test image into a test_version.txt
 	# e.g. test-ab12cd34
