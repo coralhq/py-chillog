@@ -12,6 +12,12 @@ How To Install
 - Run ``make install``
 
 
+How To Test
+===========
+
+- Run ``make test``
+
+
 How To Use
 ==========
 
