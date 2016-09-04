@@ -118,6 +118,19 @@ class Chillog:
                                                **kwargs)
         self.__print_log(formatted_log)
 
+    def notice(self, short_message, **kwargs):  # pragma: no cover
+        """
+        Format log with notice level
+
+        :param short_message: Short log message
+        :param kwargs: Additional param(s)
+        :return: Print formatted log to stdout
+        """
+        formatted_log = self.build_log_message(log_level=self.LOG_NOTICE,
+                                               short_message=short_message,
+                                               **kwargs)
+        self.__print_log(formatted_log)
+
     def warning(self, short_message, **kwargs):  # pragma: no cover
         """
         Format log with warning level
@@ -131,15 +144,15 @@ class Chillog:
                                                **kwargs)
         self.__print_log(formatted_log)
 
-    def alert(self, short_message, **kwargs):  # pragma: no cover
+    def error(self, short_message, **kwargs):  # pragma: no cover
         """
-        Format log with alert level
+        Format log with error level
 
         :param short_message: Short log message
         :param kwargs: Additional param(s)
         :return: Print formatted log to stdout
         """
-        formatted_log = self.build_log_message(log_level=self.LOG_ALERT,
+        formatted_log = self.build_log_message(log_level=self.LOG_ERROR,
                                                short_message=short_message,
                                                **kwargs)
         self.__print_log(formatted_log)
@@ -153,6 +166,19 @@ class Chillog:
         :return: Print formatted log to stdout
         """
         formatted_log = self.build_log_message(log_level=self.LOG_CRITICAL,
+                                               short_message=short_message,
+                                               **kwargs)
+        self.__print_log(formatted_log)
+
+    def alert(self, short_message, **kwargs):  # pragma: no cover
+        """
+        Format log with alert level
+
+        :param short_message: Short log message
+        :param kwargs: Additional param(s)
+        :return: Print formatted log to stdout
+        """
+        formatted_log = self.build_log_message(log_level=self.LOG_ALERT,
                                                short_message=short_message,
                                                **kwargs)
         self.__print_log(formatted_log)

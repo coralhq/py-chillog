@@ -80,6 +80,34 @@ class TestLogger(unittest.TestCase):
         self.assertEqual(json_log['level'], self.logger.LOG_DEBUG)
         self.assertEqual(json_log['_key'], 'value')
 
+    def test_build_json_log_error_success(self):
+        message = 'test formatting'
+        json_log = self.logger.build_log_message(log_level=self.logger.LOG_ERROR,
+                                                 short_message=message,
+                                                 key='value')
+
+        self.assertIsInstance(json_log, dict)
+        self.assertEqual(json_log['version'], self.logger.LOG_MESSAGE_VERSION)
+        self.assertEqual(json_log['short_message'], message)
+        self.assertEqual(json_log['host'], self.hostname)
+        self.assertEqual(json_log['service'], self.service_name)
+        self.assertEqual(json_log['level'], self.logger.LOG_ERROR)
+        self.assertEqual(json_log['_key'], 'value')
+
+    def test_build_json_log_notice_success(self):
+        message = 'test formatting'
+        json_log = self.logger.build_log_message(log_level=self.logger.LOG_NOTICE,
+                                                 short_message=message,
+                                                 key='value')
+
+        self.assertIsInstance(json_log, dict)
+        self.assertEqual(json_log['version'], self.logger.LOG_MESSAGE_VERSION)
+        self.assertEqual(json_log['short_message'], message)
+        self.assertEqual(json_log['host'], self.hostname)
+        self.assertEqual(json_log['service'], self.service_name)
+        self.assertEqual(json_log['level'], self.logger.LOG_NOTICE)
+        self.assertEqual(json_log['_key'], 'value')
+
     def test_build_json_log_info_with_dict_success(self):
         message = 'test formatting'
         additional_dict = {

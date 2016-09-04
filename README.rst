@@ -25,13 +25,15 @@ How To Use
 - Initialize this library with ``logger = Chillog()``
 - Use Chillog logger using ``logger`` (object from previous step)
 
-There are 5 logger you can use:
+There are 7 logger you can use:
 
 - ``debug``
 - ``info``
+- ``notice``
 - ``warning``
-- ``alert``
+- ``error``
 - ``critical``
+- ``alert``
 
 e.g. : ``logger.info('log message')``
 
@@ -40,4 +42,4 @@ You can also pass additional data to logger, by kwargs param or just pass whole 
 e.g. :
 
 - Pass kwargs params --> ``logger.info('log message', key='value')``
-- Pass dict --> ``logger.info('log message', **{'key': 'value'})``
+- Pass dict (notice ``**`` sign before dict) --> ``logger.info('log message', **{'key': 'value'})``
