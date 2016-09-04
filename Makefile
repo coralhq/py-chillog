@@ -3,7 +3,6 @@ SHELL := bash
 IMAGE = coralteam/py-chillog
 VERSION ?= latest
 TEST_PREFIX ?= test-
-ENV_FILE ?= /go/src/blackfish/.env
 
 .PHONY: build push test integration-test  \
 	clean img-clean
