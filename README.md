@@ -6,8 +6,9 @@ Python library for building logging data structure based on [GELF](http://docs.g
 Installation
 ============
 
-- Clone this repo
-- Run `make install`
+```shell
+$ make install
+```
 
 
 Usage
