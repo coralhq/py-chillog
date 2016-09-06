@@ -1,9 +1,14 @@
 import json
+import os
 import socket
 import time
 
 
 class Chillog:
+    """
+    Python library for building logging data structure based on GELF
+    More info check http://docs.graylog.org/en/2.1/pages/gelf.html
+    """
     LOG_MESSAGE_VERSION = 1
 
     LOG_ALERT = 1
@@ -14,14 +19,22 @@ class Chillog:
     LOG_INFO = 6
     LOG_DEBUG = 7
 
-    def __init__(self, service_name, hostname=None):
-        self.__service_name = service_name
+    def __init__(self, service_name=None, hostname=None):
+        """
+        Init logger
+        Just do this one time and reuse object for best practice
+        Ex: `logger = Chillog()` --> use `logger` object to logging
+
+        :param service_name: From which service the log is coming. Default is get value of os environ 'SERVICE_NAME'
+        :param hostname: From which host the log is coming. Default is get value of hostname natively with python
+        """
+        self.__service_name = service_name if service_name else os.environ.get('SERVICE_NAME')
         self.__hostname = hostname if hostname else socket.gethostname()
 
     @staticmethod
     def __get_current_millis():
         """
-        Get current time in milliseconds
+        Get current time in milliseconds.
 
         :return: Current time in milliseconds
         """
@@ -30,7 +43,7 @@ class Chillog:
     @staticmethod
     def __add_optional_fields(dict_to_add, **kwargs):
         """
-        Add optional field to dict.
+        Add optional field to dict
         Additional field(s) will be preceded with underscore in front of the field name
 
         :param dict_to_add: Dict to be added with optional field(s)
@@ -55,7 +68,7 @@ class Chillog:
 
     def build_log_message(self, log_level, short_message, **kwargs):
         """
-        Build log message in Chillog format.
+        Build log message in Chillog format
 
         :param log_level: Level of log
         :param short_message: Short message about the event
