@@ -1,3 +1,5 @@
+import os
+import socket
 import unittest
 from chillog.logger import Chillog
 
@@ -9,6 +11,40 @@ class TestLogger(unittest.TestCase):
         self.service_name = 'TEST_SERVICE'
         self.logger = Chillog(service_name=self.service_name,
                               hostname=self.hostname)
+
+    def test_build_json_log_info_with_default_config(self):
+        os.environ["SERVICE_NAME"] = "TEST_SERVICE"
+        default_logger = Chillog()
+        message = 'test formatting'
+        json_log = default_logger.build_log_message(log_level=self.logger.LOG_INFO,
+                                                    short_message=message,
+                                                    key='value')
+
+        self.assertIsInstance(json_log, dict)
+        self.assertEqual(json_log['version'], self.logger.LOG_MESSAGE_VERSION)
+        self.assertEqual(json_log['short_message'], message)
+        self.assertEqual(json_log['host'], socket.gethostname())
+        self.assertEqual(json_log['service'], os.environ.get("SERVICE_NAME"))
+        self.assertEqual(json_log['level'], self.logger.LOG_INFO)
+        self.assertEqual(json_log['_key'], 'value')
+
+        del os.environ["SERVICE_NAME"]
+        os.unsetenv("SERVICE_NAME")
+
+    def test_build_json_log_info_with_default_config_without_os_eviron(self):
+        default_logger = Chillog()
+        message = 'test formatting'
+        json_log = default_logger.build_log_message(log_level=self.logger.LOG_INFO,
+                                                    short_message=message,
+                                                    key='value')
+
+        self.assertIsInstance(json_log, dict)
+        self.assertEqual(json_log['version'], self.logger.LOG_MESSAGE_VERSION)
+        self.assertEqual(json_log['short_message'], message)
+        self.assertEqual(json_log['host'], socket.gethostname())
+        self.assertEqual(json_log['service'], None)
+        self.assertEqual(json_log['level'], self.logger.LOG_INFO)
+        self.assertEqual(json_log['_key'], 'value')
 
     def test_build_json_log_info_success(self):
         message = 'test formatting'
