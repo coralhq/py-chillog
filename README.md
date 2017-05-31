@@ -42,10 +42,12 @@ This library also read hostname using python native (`socket.gethostname()`).
 
 Service name and hostname can overridden when initialisation Chillog object like example below
 
+You also have option to prettify log or not. Default is False
+
 ```python
 from chillog.logger import Chillog
 
-logger = Chillog(service_name="SERVICE_NAME", hostname="HOSTNAME")
+logger = Chillog(service_name="SERVICE_NAME", hostname="HOSTNAME", prettify_log=True)
 ```
 
 There are 7 logger you can use:
