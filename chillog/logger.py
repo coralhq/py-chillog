@@ -1,3 +1,4 @@
+from __future__ import print_function
 import json
 import os
 import socket
@@ -64,7 +65,7 @@ class Chillog:
         :param formatted_log: Formatted JSON log
         :return: Print to stdout
         """
-        print json.dumps(formatted_log, indent=4, sort_keys=True)
+        print(json.dumps(formatted_log, indent=4, sort_keys=True))
 
     def build_log_message(self, log_level, short_message, **kwargs):
         """
