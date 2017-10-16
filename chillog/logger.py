@@ -20,7 +20,7 @@ class Chillog:
     LOG_INFO = 6
     LOG_DEBUG = 7
 
-    def __init__(self, service_name=None, hostname=None):
+    def __init__(self, service_name=None, hostname=None, prettify_log=False):
         """
         Init logger
         Just do this one time and reuse object for best practice
@@ -31,6 +31,7 @@ class Chillog:
         """
         self.__service_name = service_name if service_name else os.environ.get('SERVICE_NAME')
         self.__hostname = hostname if hostname else socket.gethostname()
+        self.__prettify_log = prettify_log
 
     @staticmethod
     def __get_current_millis():
@@ -57,15 +58,18 @@ class Chillog:
 
         return dict_to_add
 
-    @staticmethod
-    def __print_log(formatted_log):  # pragma: no cover
+    def __print_log(self, formatted_log):  # pragma: no cover
         """
-        Print formatted log prettify
+        Print formatted log
 
         :param formatted_log: Formatted JSON log
         :return: Print to stdout
         """
-        print(json.dumps(formatted_log, indent=4, sort_keys=True))
+
+        if self.__prettify_log:
+            print(json.dumps(formatted_log, indent=4, sort_keys=True))
+        else:
+            print(json.dumps(formatted_log, sort_keys=True))
 
     def build_log_message(self, log_level, short_message, **kwargs):
         """
